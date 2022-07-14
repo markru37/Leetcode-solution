@@ -12,18 +12,23 @@ var romanToInt = function(s) {
         D: 500,
         M: 1000,
     };
+
     let sum = 0;
+    let currentValue = 0;
+    let nextValue = 0;
+
     for (i = 0; i < s.length; i++) {
-        if (i !== s.length - 1) {
-            if (dict[s[i]] >= dict[s[i + 1]]) {
-                sum += dict[s[i]];
-            } else {
-                sum += dict[s[i + 1]] - dict[s[i]];
+        currentValue = dict[s[i]];
+
+        if (i != s.length - 1) {
+            nextValue = dict[s[i + 1]];
+
+            if (currentValue < nextValue) {
+                currentValue = nextValue - currentValue;
                 i++;
             }
-        } else {
-            sum += dict[s[i]];
         }
+        sum += currentValue;
     }
-    return sum;
+    return sum
 };
